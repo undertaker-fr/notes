@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 2 · 文件操作 - 我的编程学习笔记</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="container">
+
+  <nav class="page-nav">
+    <a href="index.html">← 返回首页</a>
+    <a href="day1.html">⟵ 上一篇:Day 1</a>
+    <a href="deployment.html">下一篇:特别任务 →</a>
+  </nav>
+
+  <header class="day-header">
+    <h1>🌿 Day 2 · 文件操作<span class="tag tag-done">已完成</span></h1>
+    <div class="day-date">学习日期:2026-04-27</div>
+    <p class="goal-box">🎯 <strong>学习目标</strong>:用纯键盘新建、读取、追加、删除一个真实的文本文件。理解 <code>&gt;</code> 和 <code>&gt;&gt;</code> 这两个"重定向"符号的威力。</p>
+  </header>
+
+  <!-- Chapter 1 -->
+  <section class="chapter">
+    <span class="chapter-num">第 1 章</span>
+    <h2>从"文件夹"升级到"文件"</h2>
+    <p>Day 1 我们都在<strong>文件夹层面</strong>玩(进出文件夹、新建文件夹)。Day 2 升级到<strong>文件层面</strong>:</p>
+    <ul>
+      <li>怎么<strong>新建</strong>一个文件?</li>
+      <li>怎么<strong>写</strong>字进去?</li>
+      <li>怎么<strong>读</strong>它?</li>
+      <li>怎么<strong>删</strong>掉它?</li>
+    </ul>
+    <p>而且你会学到一个超酷的符号 <code>&gt;</code>——它能把命令的输出<strong>直接写进文件</strong>。这是终端的灵魂之一。</p>
+  </section>
+
+  <!-- Chapter 2 -->
+  <section class="chapter">
+    <span class="chapter-num">第 2 章</span>
+    <h2><code>cls</code> + <code>echo</code> — 清屏 + 打印</h2>
+
+    <h3><code>cls</code> 清屏</h3>
+    <p><strong>cl</strong>ear <strong>s</strong>creen。屏幕乱了,输 <code>cls</code> 立刻干净。</p>
+
+    <h3><code>echo "内容"</code> 打印一句话</h3>
+    <p><strong>echo</strong> = 回声。你说啥它打印啥。</p>
+    <pre><code>PS C:\xxx&gt; echo "我是大佬"
+我是大佬</code></pre>
+    <p>看起来没啥用对吧?它的真正威力在第 3 章——配合 <code>&gt;</code> 符号。</p>
+  </section>
+
+  <!-- Chapter 3 -->
+  <section class="chapter">
+    <span class="chapter-num">第 3 章</span>
+    <h2><code>&gt;</code> 重定向 — 把输出装进文件</h2>
+    <p>命令默认输出到屏幕。但加个 <code>&gt;</code> 符号,可以让输出<strong>"流向文件"</strong>。</p>
+
+    <h3>覆盖写入(单 <code>&gt;</code>)</h3>
+    <pre><code>echo "今天我学会了用终端" &gt; diary.txt</code></pre>
+    <p>这条命令的意思:</p>
+    <ol>
+      <li><strong>新建</strong>一个叫 <code>diary.txt</code> 的文件(如果存在则<strong>清空覆盖</strong>)</li>
+      <li>把"今天我学会了用终端"这段文字<strong>写进去</strong></li>
+    </ol>
+    <p>屏幕没有任何反应,但文件已经创建了。可以用 <code>dir</code> 验证。</p>
+
+    <h3>追加写入(双 <code>&gt;&gt;</code>)</h3>
+    <pre><code>echo "明天我要学 Python" &gt;&gt; diary.txt</code></pre>
+    <p><code>&gt;&gt;</code> 是<strong>追加</strong>——保留原文件内容,新内容加到末尾。</p>
+
+    <div class="pitfall">
+      <strong>⚠️ 区分:<code>&gt;</code> 和 <code>&gt;&gt;</code></strong><br>
+      <code>&gt;</code> = <strong>覆盖</strong>(原内容会消失!)<br>
+      <code>&gt;&gt;</code> = <strong>追加</strong>(原内容保留,新的接到后面)<br>
+      <em>真实文件操作中,<code>&gt;</code> 用错可能让你<strong>丢失重要数据</strong>。先用 <code>&gt;&gt;</code> 思考一下。</em>
+    </div>
+  </section>
+
+  <!-- Chapter 4 -->
+  <section class="chapter">
+    <span class="chapter-num">第 4 章</span>
+    <h2><code>type</code> — 看文件内容</h2>
+    <p>查看文件里写了啥。</p>
+    <pre><code>PS C:\xxx&gt; type diary.txt
+今天我学会了用终端
+明天我要学 Python</code></pre>
+    <p>注意它<strong>原样输出</strong>到屏幕,什么编辑器都不用开。</p>
+    <div class="tip"><strong>💡 类比</strong>:<code>type</code> 在 Linux/Mac 上叫 <code>cat</code>。是个不同名字的同一个工具。</div>
+  </section>
+
+  <!-- Chapter 5 -->
+  <section class="chapter">
+    <span class="chapter-num">第 5 章</span>
+    <h2><code>del</code> 和 <code>Remove-Item</code> — 删除</h2>
+
+    <h3><code>del 文件</code> 删文件</h3>
+    <pre><code>del diary.txt</code></pre>
+
+    <h3><code>Remove-Item 文件或文件夹</code> 通用删除</h3>
+    <p>PowerShell 风格的命令,文件、文件夹都能删。</p>
+    <pre><code>Remove-Item my-folder</code></pre>
+
+    <div class="pitfall">
+      <strong>⚠️ 警告:终端删除是<strong>永久删除</strong></strong><br>
+      用 <code>del</code> 或 <code>Remove-Item</code> 删的文件<strong>不会进回收站</strong>,删了就找不回来。<br>
+      <em>对真实文件要谨慎。先 <code>dir</code> 看清楚再删。</em>
+    </div>
+  </section>
+
+  <!-- Chapter 6 -->
+  <section class="chapter">
+    <span class="chapter-num">第 6 章</span>
+    <h2>真实踩坑记录</h2>
+
+    <div class="pitfall">
+      <strong>坑 1:<code>echo</code> 后面忘了空格</strong><br>
+      ❌ <code>echo"内容"&gt;a.txt</code> → 报错 "无法识别为 cmdlet"<br>
+      ✅ <code>echo "内容" &gt; a.txt</code><br>
+      <strong>原因</strong>:终端按空格区分"命令"和"参数"。没空格 → 整个被当成一个命令名 → 找不到 → 报错。
+    </div>
+
+    <div class="pitfall">
+      <strong>坑 2:<code>type</code> 看 Markdown / 中文文件出现乱码</strong><br>
+      老版 PowerShell 默认用 <strong>GBK</strong> 编码读文件,但很多文件保存的是 <strong>UTF-8</strong>,两边对不上 → 中文显示成 <code>锛佺潃</code> 这种乱码。<br>
+      <strong>解决</strong>:① 用 <code>Get-Content -Encoding UTF8 文件名</code> ② 或者直接用 VSCode 打开 ③ 写 PowerShell 命令时,先 <code>chcp 65001</code> 切换编码
+    </div>
+  </section>
+
+  <!-- Achievements -->
+  <section class="chapter">
+    <h2>🏆 解锁的能力</h2>
+    <ul class="achievements">
+      <li>能用纯键盘新建、读取、追加、删除一个文本文件</li>
+      <li>理解 <code>&gt;</code>(覆盖)和 <code>&gt;&gt;</code>(追加)的区别</li>
+      <li>知道终端删除不进回收站,操作时会更谨慎</li>
+      <li>认识到"编码"这个概念,知道 GBK 和 UTF-8 是不同的"字典"</li>
+      <li>知道报错先看最后一两行,关键词通常在 Exception 那行</li>
+    </ul>
+  </section>
+
+  <nav class="page-nav">
+    <a href="index.html">← 返回首页</a>
+    <a href="day1.html">⟵ 上一篇:Day 1 路径</a>
+    <a href="deployment.html">下一篇:特别任务 上线 →</a>
+  </nav>
+
+  <footer>
+    最近更新:2026-04-28 · 由 Claude Code 协作维护
+  </footer>
+
+</div>
+
+</body>
+</html>

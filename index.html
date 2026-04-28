@@ -4,244 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>我的编程学习笔记</title>
-<style>
-  :root {
-    --bg: #fafaf7;
-    --card: #ffffff;
-    --text: #1f2937;
-    --muted: #6b7280;
-    --accent: #4f46e5;
-    --accent-soft: #eef2ff;
-    --green: #10b981;
-    --green-soft: #d1fae5;
-    --orange: #f59e0b;
-    --orange-soft: #fef3c7;
-    --red: #ef4444;
-    --red-soft: #fee2e2;
-    --border: #e5e7eb;
-    --code-bg: #1e293b;
-    --code-text: #e2e8f0;
-  }
-
-  * { box-sizing: border-box; }
-
-  body {
-    margin: 0;
-    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.7;
-  }
-
-  .container {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 40px 24px 80px;
-  }
-
-  /* Header */
-  header {
-    text-align: center;
-    padding: 48px 24px;
-    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-    color: white;
-    border-radius: 16px;
-    margin-bottom: 32px;
-    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.15);
-  }
-  header h1 { margin: 0 0 8px; font-size: 2rem; font-weight: 700; }
-  header .subtitle { opacity: 0.9; font-size: 1rem; margin: 0; }
-
-  /* Stats panel */
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 16px;
-    margin-bottom: 32px;
-  }
-  .stat-card {
-    background: var(--card);
-    border-radius: 12px;
-    padding: 20px;
-    border: 1px solid var(--border);
-    text-align: center;
-  }
-  .stat-card .num {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--accent);
-    line-height: 1;
-    margin-bottom: 6px;
-  }
-  .stat-card .label {
-    font-size: 0.875rem;
-    color: var(--muted);
-  }
-
-  /* Day card */
-  .day-card {
-    background: var(--card);
-    border-radius: 12px;
-    padding: 28px 32px;
-    margin-bottom: 24px;
-    border: 1px solid var(--border);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-  }
-  .day-card h2 {
-    margin: 0 0 6px;
-    font-size: 1.5rem;
-    color: var(--accent);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .day-card .date {
-    font-size: 0.85rem;
-    color: var(--muted);
-    margin-bottom: 16px;
-  }
-  .day-card .goal {
-    background: var(--accent-soft);
-    border-left: 4px solid var(--accent);
-    padding: 12px 16px;
-    border-radius: 6px;
-    margin-bottom: 20px;
-    font-size: 0.95rem;
-  }
-
-  h3 {
-    font-size: 1.1rem;
-    margin: 24px 0 12px;
-    color: var(--text);
-  }
-
-  /* Tables */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 12px 0;
-    font-size: 0.92rem;
-  }
-  table th {
-    background: #f3f4f6;
-    text-align: left;
-    padding: 10px 14px;
-    font-weight: 600;
-    border-bottom: 2px solid var(--border);
-  }
-  table td {
-    padding: 10px 14px;
-    border-bottom: 1px solid var(--border);
-    vertical-align: top;
-  }
-  table tr:last-child td { border-bottom: none; }
-  table tr:hover { background: #fafafa; }
-
-  code {
-    font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
-    background: #f1f5f9;
-    color: #db2777;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 0.9em;
-  }
-  td code { white-space: nowrap; }
-
-  pre {
-    background: var(--code-bg);
-    color: var(--code-text);
-    padding: 16px 20px;
-    border-radius: 8px;
-    overflow-x: auto;
-    font-size: 0.9rem;
-    line-height: 1.6;
-  }
-  pre code {
-    background: transparent;
-    color: inherit;
-    padding: 0;
-  }
-
-  /* Pitfall boxes */
-  .pitfall {
-    background: var(--orange-soft);
-    border-left: 4px solid var(--orange);
-    padding: 14px 18px;
-    border-radius: 6px;
-    margin: 12px 0;
-  }
-  .pitfall strong { color: #92400e; }
-
-  /* Achievement list */
-  .achievements {
-    list-style: none;
-    padding: 0;
-  }
-  .achievements li {
-    padding: 8px 0 8px 28px;
-    position: relative;
-  }
-  .achievements li::before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    color: var(--green);
-    font-weight: 700;
-  }
-
-  /* Tag */
-  .tag {
-    display: inline-block;
-    padding: 2px 10px;
-    border-radius: 12px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    margin-left: 8px;
-  }
-  .tag-done { background: var(--green-soft); color: #065f46; }
-  .tag-todo { background: var(--orange-soft); color: #92400e; }
-
-  /* Section dividers */
-  .section-title {
-    font-size: 1.4rem;
-    margin: 48px 0 16px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid var(--border);
-  }
-
-  /* Concept grid */
-  .concept-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 12px;
-    margin: 16px 0;
-  }
-  .concept-item {
-    background: #f9fafb;
-    padding: 14px 16px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-  }
-  .concept-item strong { color: var(--accent); display: block; margin-bottom: 4px; }
-
-  /* Footer */
-  footer {
-    text-align: center;
-    color: var(--muted);
-    font-size: 0.85rem;
-    margin-top: 48px;
-    padding-top: 24px;
-    border-top: 1px solid var(--border);
-  }
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <div class="container">
 
-  <header>
+  <header class="home-header">
     <h1>📚 我的编程学习笔记</h1>
     <p class="subtitle">从小白到能跟 AI 协作的程序员 · 一次一步</p>
+    <div class="intro">
+      这里是我从零学编程的笔记网站。每完成一天学习,就在这里留下一份详细的教程,既给未来的自己复习,也给一起进步的伙伴(我女朋友)看。<br>
+      所有内容都<strong>从最小白的视角写</strong>,假设你完全没接触过编程。点击下面任意一张卡片进入对应的课程。
+    </div>
   </header>
 
   <!-- Stats -->
@@ -264,334 +39,77 @@
     </div>
   </div>
 
-  <!-- Day 1 -->
-  <div class="day-card">
-    <h2>🌱 Day 1 · 搞懂"路径"<span class="tag tag-done">已完成</span></h2>
-    <div class="date">2026-04-27</div>
-    <div class="goal">🎯 目标：明白路径是什么，并亲手在终端里走进文件夹再走出来。</div>
+  <!-- Course Catalog -->
+  <h2 class="section-title">📖 课程目录</h2>
+  <p style="color: var(--muted); margin-top: -8px; font-size: 0.95rem;">建议从 Day 1 开始按顺序学。点击卡片进入详细教程页。</p>
 
-    <h3>核心概念</h3>
-    <div class="concept-grid">
-      <div class="concept-item">
-        <strong>路径 = 地址</strong>
-        电脑里每个文件/文件夹都有一个完整地址,比如 <code>C:\Users\Administrator\Desktop</code>
-      </div>
-      <div class="concept-item">
-        <strong>盘符</strong>
-        C 盘、D 盘 = 楼栋
-      </div>
-      <div class="concept-item">
-        <strong>文件夹</strong>
-        楼层和房间
-      </div>
-      <div class="concept-item">
-        <strong>文件</strong>
-        房间里的具体物品
-      </div>
+  <div class="day-grid">
+
+    <a href="day1.html" class="day-link-card">
+      <div class="day-emoji">🌱</div>
+      <h3>Day 1 · 搞懂"路径"</h3>
+      <div class="day-date">2026-04-27 · 已完成</div>
+      <div class="day-summary">理解电脑里"地址"的概念,学会在终端里走进/走出文件夹。第一次"用键盘控制电脑"。</div>
+    </a>
+
+    <a href="day2.html" class="day-link-card">
+      <div class="day-emoji">🌿</div>
+      <h3>Day 2 · 文件操作</h3>
+      <div class="day-date">2026-04-27 · 已完成</div>
+      <div class="day-summary">用纯键盘新建、读取、追加、删除文本文件。学会 echo / type / del 等核心命令。</div>
+    </a>
+
+    <a href="deployment.html" class="day-link-card">
+      <div class="day-emoji">🚀</div>
+      <h3>特别任务 · 让笔记上线</h3>
+      <div class="day-date">2026-04-27 · 已完成</div>
+      <div class="day-summary">学会 Git 和 GitHub,把这个笔记网站部署到公网。从此拥有可以发给朋友的真实网址。</div>
+    </a>
+
+    <a href="day3.html" class="day-link-card">
+      <div class="day-emoji">🌳</div>
+      <h3>Day 3 · 第一行 Python 代码</h3>
+      <div class="day-date">2026-04-28 · 已完成</div>
+      <div class="day-summary">从零理解 Python 是什么,用 REPL 和脚本两种方式跑出 hello world,学会 print 函数。</div>
+    </a>
+
+    <div class="day-link-card todo">
+      <div class="day-emoji">🌲</div>
+      <h3>Day 4 · 变量 + input + 字符串拼接</h3>
+      <div class="day-date">待完成</div>
+      <div class="day-summary">学会让程序记住数据(变量)、问问题(input)、拼字(+)。写出会和你互动的小程序。</div>
     </div>
 
-    <h3>学到的命令</h3>
-    <table>
-      <tr><th>命令</th><th>功能</th><th>例子</th></tr>
-      <tr><td><code>pwd</code></td><td>显示当前所在位置</td><td><code>pwd</code></td></tr>
-      <tr><td><code>dir</code></td><td>列出当前文件夹内容</td><td><code>dir</code></td></tr>
-      <tr><td><code>cd 文件夹</code></td><td>进入某个文件夹（相对路径）</td><td><code>cd Desktop</code></td></tr>
-      <tr><td><code>cd 完整路径</code></td><td>用绝对路径直达任何位置</td><td><code>cd C:\Users\Administrator</code></td></tr>
-      <tr><td><code>cd ..</code></td><td>退到上一级文件夹</td><td><code>cd ..</code></td></tr>
-      <tr><td><code>mkdir 名字</code></td><td>新建文件夹</td><td><code>mkdir my-folder</code></td></tr>
-    </table>
-
-    <h3>关键认知</h3>
-    <ul class="achievements">
-      <li>相对路径 = "去隔壁",只能在当前位置旁边时用</li>
-      <li>绝对路径 = "完整地址",在哪儿都能直达</li>
-      <li>提示符 <code>PS C:\xxx&gt;</code> 左边的路径就是"我现在在哪"</li>
-      <li>Windows 不区分大小写,但 Linux 服务器严格区分,养成"原文怎么写就怎么写"的习惯</li>
-    </ul>
-  </div>
-
-  <!-- Day 2 -->
-  <div class="day-card">
-    <h2>🌿 Day 2 · 文件操作<span class="tag tag-done">已完成</span></h2>
-    <div class="date">2026-04-27</div>
-    <div class="goal">🎯 目标：用纯键盘创建、读取、追加、删除一个真实的文本文件。</div>
-
-    <h3>学到的命令</h3>
-    <table>
-      <tr><th>命令</th><th>功能</th><th>例子</th></tr>
-      <tr><td><code>cls</code></td><td>清屏</td><td><code>cls</code></td></tr>
-      <tr><td><code>echo "内容"</code></td><td>在屏幕上打印一句话</td><td><code>echo "你好"</code></td></tr>
-      <tr><td><code>echo "..." &gt; 文件</code></td><td>把内容写进文件（覆盖）</td><td><code>echo "笔记" &gt; a.txt</code></td></tr>
-      <tr><td><code>echo "..." &gt;&gt; 文件</code></td><td>追加到文件末尾（保留旧内容）</td><td><code>echo "再加一行" &gt;&gt; a.txt</code></td></tr>
-      <tr><td><code>type 文件</code></td><td>查看文件内容</td><td><code>type a.txt</code></td></tr>
-      <tr><td><code>del 文件</code></td><td>永久删除文件</td><td><code>del a.txt</code></td></tr>
-      <tr><td><code>Remove-Item 名字</code></td><td>删除文件或文件夹</td><td><code>Remove-Item my-folder</code></td></tr>
-    </table>
-
-    <h3>实用神技巧</h3>
-    <ol>
-      <li><strong>拖放路径</strong>：输 <code>cd </code>（带空格）后,把文件夹从资源管理器拖进 PowerShell,路径自动出现。</li>
-      <li><strong>Tab 自动补全</strong>：输 <code>cd Des</code> 按 Tab → 自动变成 <code>cd Desktop</code>。</li>
-      <li><strong>粘贴</strong>：在 PowerShell 里右键 = 粘贴,或 <code>Ctrl + V</code>。</li>
-    </ol>
-
-    <h3>踩坑记录 🪤</h3>
-    <div class="pitfall">
-      <strong>坑 1：echo 后面忘了空格</strong><br>
-      ❌ <code>echo"内容"&gt;a.txt</code> → 报错 "无法识别为 cmdlet"<br>
-      ✅ <code>echo "内容" &gt; a.txt</code><br>
-      <em>教训：命令和参数之间必须有空格,符号 <code>&gt;</code> <code>&gt;&gt;</code> 两边也要加空格。</em>
-    </div>
-    <div class="pitfall">
-      <strong>坑 2：del 是永久删除</strong><br>
-      被删的文件不会进回收站,删了就找不回来,对真文件要谨慎。
-    </div>
-    <div class="pitfall">
-      <strong>坑 3：PowerShell 看 UTF-8 文件会乱码</strong><br>
-      老版 PowerShell 默认用 GBK 字典,读 UTF-8 写的中文文件会乱码。<br>
-      解决：用 <code>Get-Content -Encoding UTF8 文件名</code>,或者直接用 VSCode 打开。
-    </div>
-
-    <h3>解锁的能力</h3>
-    <ul class="achievements">
-      <li>能用纯键盘新建、读取、追加、删除文件</li>
-      <li>理解 <code>&gt;</code>（覆盖）和 <code>&gt;&gt;</code>（追加）的区别</li>
-      <li>知道报错信息怎么读：先看最后一两行,关键词通常在 <code>Exception</code> 那行</li>
-    </ul>
-  </div>
-
-  <!-- Deployment Milestone -->
-  <div class="day-card">
-    <h2>🚀 特别任务 · 让笔记上线<span class="tag tag-done">已完成</span></h2>
-    <div class="date">2026-04-27</div>
-    <div class="goal">🎯 目标：把本地的 HTML 文件部署到公网,让全世界都能访问。</div>
-
-    <h3>核心概念</h3>
-    <div class="concept-grid">
-      <div class="concept-item">
-        <strong>Git</strong>
-        给文件每次改动"拍快照",像时间机器,随时能回到任何历史版本
-      </div>
-      <div class="concept-item">
-        <strong>GitHub</strong>
-        程序员的"代码版朋友圈",全球 1 亿+开发者在上面存代码、晒项目
-      </div>
-      <div class="concept-item">
-        <strong>仓库（Repo）</strong>
-        一个项目的容器,既存文件,也存所有历史快照
-      </div>
-      <div class="concept-item">
-        <strong>部署（Deploy）</strong>
-        把文件放到永远开机的服务器,让别人能通过网址访问
-      </div>
-      <div class="concept-item">
-        <strong>GitHub Pages</strong>
-        GitHub 提供的免费网页托管服务,把公开仓库变成网站
-      </div>
-      <div class="concept-item">
-        <strong>main 分支</strong>
-        Git 仓库的主线,默认大家把代码推到这里
-      </div>
-    </div>
-
-    <h3>学到的命令</h3>
-    <table>
-      <tr><th>命令</th><th>功能</th><th>例子</th></tr>
-      <tr><td><code>git init -b main</code></td><td>把当前文件夹变成 Git 仓库（主分支叫 main）</td><td><code>git init -b main</code></td></tr>
-      <tr><td><code>git add 文件</code></td><td>把文件加入"待保存清单"</td><td><code>git add index.html</code></td></tr>
-      <tr><td><code>git commit -m "..."</code></td><td>把待保存清单"拍照存档"</td><td><code>git commit -m "首次提交"</code></td></tr>
-      <tr><td><code>git push</code></td><td>把本地存档"推"到 GitHub 云端</td><td><code>git push</code></td></tr>
-      <tr><td><code>gh repo create</code></td><td>用 GitHub CLI 直接建远程仓库</td><td><code>gh repo create notes --public --push</code></td></tr>
-    </table>
-
-    <h3>关键认知</h3>
-    <ul class="achievements">
-      <li>本地 → GitHub 的核心三步：<code>add</code> → <code>commit</code> → <code>push</code></li>
-      <li>commit message（提交信息）不是给电脑看的,是给未来的自己和队友看的——要写清楚改了啥</li>
-      <li>Public 仓库 = 全世界都能看你的代码;Private 仓库 = 只有你和邀请的人能看</li>
-      <li>GitHub Pages 网址规则：<code>https://用户名.github.io/仓库名/</code></li>
-      <li>第一次部署需要 1-3 分钟才能访问,后续更新只要几十秒</li>
-      <li>看构建状态：<code>gh api repos/用户名/仓库名/pages/builds/latest</code></li>
-    </ul>
-
-    <h3>解锁的能力</h3>
-    <ul class="achievements">
-      <li>🌐 拥有人生第一个公网网站：<a href="https://undertaker-fr.github.io/notes/" target="_blank">undertaker-fr.github.io/notes</a></li>
-      <li>📦 拥有第一个 GitHub 仓库,GitHub 主页有了真实作品</li>
-      <li>🔄 走通了"本地改 → push → 自动上线"完整工作流</li>
-      <li>🤝 设置了 Claude Code 自动更新机制,以后每学完一天笔记自动同步上线</li>
-    </ul>
-  </div>
-
-  <!-- Day 3 -->
-  <div class="day-card">
-    <h2>🌳 Day 3 · 写下人生第一行 Python 代码<span class="tag tag-done">已完成</span></h2>
-    <div class="date">2026-04-28</div>
-    <div class="goal">🎯 目标：搞懂 Python 是什么,用两种方式（REPL + 脚本）让它执行我写的代码,写出多行 print 程序并跑通。</div>
-
-    <h3>核心概念</h3>
-    <div class="concept-grid">
-      <div class="concept-item">
-        <strong>Python = 翻译官</strong>
-        一个 .exe 程序,把人写的 Python 代码翻译成电脑能执行的指令
-      </div>
-      <div class="concept-item">
-        <strong>解释器（Interpreter）</strong>
-        Python 这种"边翻译边执行"的程序的专业名字
-      </div>
-      <div class="concept-item">
-        <strong>REPL（即时模式）</strong>
-        当面聊天:输一行执行一行,关了就忘
-      </div>
-      <div class="concept-item">
-        <strong>脚本（.py 文件）</strong>
-        写信:把代码存进文件,Python 读完执行
-      </div>
-      <div class="concept-item">
-        <strong>函数（function）</strong>
-        预先做好的小工具,给输入得输出。<code>print()</code> <code>exit()</code> 都是
-      </div>
-      <div class="concept-item">
-        <strong>参数（argument）</strong>
-        塞进函数括号里的"输入",比如 <code>print("hi")</code> 里的 <code>"hi"</code>
-      </div>
-      <div class="concept-item">
-        <strong>字符串（string）</strong>
-        被一对英文引号包起来的文字,Python 把它当"一坨文本"处理
-      </div>
-      <div class="concept-item">
-        <strong>PATH 环境变量</strong>
-        电脑的"程序通讯录":在里面的程序能打短名字调用,不在的要打完整路径
-      </div>
-      <div class="concept-item">
-        <strong>提示符的两种形态</strong>
-        <code>PS C:\xxx&gt;</code> = PowerShell 在等;<code>&gt;&gt;&gt;</code> = Python 在等
-      </div>
-      <div class="concept-item">
-        <strong>NameError vs SyntaxError</strong>
-        前者"名字错"(常因忘加引号),后者"语法错"(常因中文标点)
-      </div>
-    </div>
-
-    <h3>学到的命令</h3>
-    <table>
-      <tr><th>命令</th><th>功能</th><th>例子</th></tr>
-      <tr><td><code>python</code></td><td>启动 Python 进入 REPL（交互模式）,提示符变 <code>&gt;&gt;&gt;</code></td><td><code>python</code></td></tr>
-      <tr><td><code>python 文件.py</code></td><td>让 Python 读这个文件并执行,跑完自动退出</td><td><code>python hello.py</code></td></tr>
-      <tr><td><code>print("...")</code></td><td>Python 函数,把括号里的字符串打印到屏幕</td><td><code>print("hello")</code></td></tr>
-      <tr><td><code>exit()</code></td><td>Python 函数,退出 REPL 回到 PowerShell（空括号也得有）</td><td><code>exit()</code></td></tr>
-      <tr><td><code>notepad 文件</code></td><td>用记事本打开/创建文件,默认 UTF-8 编码,推荐用来写 .py</td><td><code>notepad hello.py</code></td></tr>
-    </table>
-
-    <h3>关键认知</h3>
-    <ul class="achievements">
-      <li>跟 Python 沟通有两种方式:REPL（试一下）和脚本（真程序）。后者占工作 99%</li>
-      <li>函数的格式永远是 <code>函数名(参数)</code>,括号是"调用"的标志,空括号也得有</li>
-      <li>字符串必须用<strong>英文引号</strong>包起来。中文引号 <code>"</code> 看着像但 Python 不认</li>
-      <li><code>.py</code> 后缀只是约定,本质是普通文本文件。改成 <code>.banana</code> Python 也能跑</li>
-      <li>读报错先看<strong>最后一行</strong>:告诉你是哪种错(NameError / SyntaxError ...)</li>
-      <li>写代码前先确认输入法是<strong>英文(En)</strong>。括号引号必须英文,这是肌肉记忆</li>
-    </ul>
-
-    <h3>踩坑记录 🪤</h3>
-    <div class="pitfall">
-      <strong>坑 4:用 <code>echo &gt; xxx.py</code> 写 Python 文件 → <code>SyntaxError: Non-UTF-8 code starting with '\xff'</code></strong><br>
-      原因:PowerShell 的 <code>&gt;</code> 默认用 UTF-16 编码写文件,Python 只读 UTF-8。<br>
-      解决:用 <code>Set-Content -Encoding utf8 ...</code>,或者更简单——直接用 <code>notepad 文件名</code> 写代码。
-    </div>
-    <div class="pitfall">
-      <strong>坑 5:中文输入法状态下打括号引号 → SyntaxError</strong><br>
-      <code>print（"hi"）</code>(全角) ≠ <code>print("hi")</code>(英文)。眼睛容易看错。<br>
-      解决:写代码前按 Shift / Ctrl+Space 切到英文输入法,再开始打。
-    </div>
-
-    <h3>解锁的能力</h3>
-    <ul class="achievements">
-      <li>🐍 写下并执行了人生第一行 Python 代码 <code>print("hello world")</code></li>
-      <li>📝 能用记事本创建并编辑 <code>.py</code> 文件,避开编码坑</li>
-      <li>🎬 能让 Python 按顺序执行多行代码（脚本模式）</li>
-      <li>🐛 能识别两种基础报错:NameError(名字错) 和 SyntaxError(语法错)</li>
-      <li>🚪 能自由进出 REPL:<code>python</code> 进 → <code>exit()</code> 出</li>
-    </ul>
-  </div>
-
-  <!-- Cheatsheet -->
-  <h2 class="section-title">📋 总速查表</h2>
-  <div class="day-card">
-    <h3>🧭 导航类</h3>
-    <table>
-      <tr><th>命令</th><th>功能</th></tr>
-      <tr><td><code>pwd</code></td><td>我在哪</td></tr>
-      <tr><td><code>dir</code></td><td>周围有啥</td></tr>
-      <tr><td><code>cd 路径</code></td><td>去哪</td></tr>
-      <tr><td><code>cd ..</code></td><td>退一步</td></tr>
-      <tr><td><code>cls</code></td><td>清屏</td></tr>
-    </table>
-
-    <h3>📁 文件夹类</h3>
-    <table>
-      <tr><th>命令</th><th>功能</th></tr>
-      <tr><td><code>mkdir 名字</code></td><td>新建文件夹</td></tr>
-      <tr><td><code>Remove-Item 名字</code></td><td>删除文件夹</td></tr>
-    </table>
-
-    <h3>📄 文件类</h3>
-    <table>
-      <tr><th>命令</th><th>功能</th></tr>
-      <tr><td><code>echo "..."</code></td><td>打印一句话</td></tr>
-      <tr><td><code>echo "..." &gt; 文件</code></td><td>写进文件（覆盖）</td></tr>
-      <tr><td><code>echo "..." &gt;&gt; 文件</code></td><td>追加到文件</td></tr>
-      <tr><td><code>type 文件</code></td><td>看文件内容</td></tr>
-      <tr><td><code>del 文件</code></td><td>删文件</td></tr>
-    </table>
-
-    <h3>🚀 Git / GitHub 类</h3>
-    <table>
-      <tr><th>命令</th><th>功能</th></tr>
-      <tr><td><code>git init -b main</code></td><td>把当前文件夹变成 Git 仓库</td></tr>
-      <tr><td><code>git add 文件</code></td><td>把文件加入待保存清单</td></tr>
-      <tr><td><code>git commit -m "..."</code></td><td>把改动存档（commit message 写清楚）</td></tr>
-      <tr><td><code>git push</code></td><td>推送到 GitHub 云端</td></tr>
-      <tr><td><code>gh repo create</code></td><td>用 GitHub CLI 建远程仓库</td></tr>
-    </table>
-
-    <h3>🐍 Python 类</h3>
-    <table>
-      <tr><th>命令</th><th>功能</th></tr>
-      <tr><td><code>python</code></td><td>进入 Python REPL（交互模式）</td></tr>
-      <tr><td><code>python 文件.py</code></td><td>让 Python 执行一个脚本文件</td></tr>
-      <tr><td><code>print("...")</code></td><td>把字符串打印到屏幕</td></tr>
-      <tr><td><code>exit()</code></td><td>退出 REPL 回到 PowerShell</td></tr>
-      <tr><td><code>notepad 文件</code></td><td>用记事本打开/新建文件（写 .py 首选）</td></tr>
-    </table>
   </div>
 
   <!-- Roadmap -->
   <h2 class="section-title">🗺️ 学习路线</h2>
-  <div class="day-card">
-    <h3>第 1 周：地基</h3>
+  <div class="roadmap-card">
+    <h3>第 1 周:地基</h3>
     <ul class="achievements">
-      <li>Day 1-2：搞懂文件/文件夹/路径概念 <span class="tag tag-done">已完成</span></li>
-      <li>🚀 特别任务：把笔记部署成公网网站 <span class="tag tag-done">已完成</span></li>
-      <li>Day 3：写下人生第一行 Python 代码 <code>print("hello world")</code> <span class="tag tag-done">已完成</span></li>
-      <li style="opacity:0.5">Day 4：变量、<code>input()</code> 用户输入、字符串拼接 <span class="tag tag-todo">待完成</span></li>
-      <li style="opacity:0.5">Day 5-7：Python 基础语法（数字、if/else、循环） <span class="tag tag-todo">待完成</span></li>
+      <li>Day 1-2:搞懂文件/文件夹/路径概念 <span class="tag tag-done">已完成</span></li>
+      <li>🚀 特别任务:把笔记部署成公网网站 <span class="tag tag-done">已完成</span></li>
+      <li>Day 3:写下人生第一行 Python 代码 <code>print("hello world")</code> <span class="tag tag-done">已完成</span></li>
+      <li style="opacity:0.5">Day 4:变量、<code>input()</code>、字符串拼接 <span class="tag tag-todo">待完成</span></li>
+      <li style="opacity:0.5">Day 5-7:Python 基础语法(数字运算、if/else、循环) <span class="tag tag-todo">待完成</span></li>
     </ul>
-
-    <h3>第 2-3 周：Python 入门</h3>
+  </div>
+  <div class="roadmap-card">
+    <h3>第 2-3 周:Python 入门</h3>
     <ul class="achievements">
       <li style="opacity:0.5">列表、字典、函数 <span class="tag tag-todo">待完成</span></li>
       <li style="opacity:0.5">读写文件、处理字符串 <span class="tag tag-todo">待完成</span></li>
     </ul>
-
-    <h3>第 4 周：第一个真实小项目</h3>
+  </div>
+  <div class="roadmap-card">
+    <h3>第 4 周:第一个真实小项目</h3>
     <ul class="achievements">
       <li style="opacity:0.5">和 Claude Code 一起做一个对自己有用的小工具 <span class="tag tag-todo">待完成</span></li>
     </ul>
   </div>
 
   <footer>
-    最近更新：2026-04-28 · 由 Claude Code 协作维护
+    最近更新:2026-04-28 · 由 Claude Code 协作维护 · <a href="https://github.com/undertaker-fr/notes" style="color: var(--accent);">查看源码</a>
   </footer>
 
 </div>

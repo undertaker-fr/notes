@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 3 · 写下第一行 Python 代码 - 我的编程学习笔记</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="container">
+
+  <nav class="page-nav">
+    <a href="index.html">← 返回首页</a>
+    <a href="deployment.html">⟵ 上一篇:特别任务</a>
+    <span class="nav-disabled">下一篇:Day 4 (待完成) →</span>
+  </nav>
+
+  <header class="day-header">
+    <h1>🌳 Day 3 · 写下人生第一行 Python 代码<span class="tag tag-done">已完成</span></h1>
+    <div class="day-date">学习日期:2026-04-28</div>
+    <p class="goal-box">🎯 <strong>学习目标</strong>:从零理解 Python 是什么,用两种方式(REPL 即时模式 + 脚本模式)让 Python 执行你写的代码,写出多行 print 程序并跑通。</p>
+    <p style="background:#fef3c7;padding:12px 16px;border-radius:6px;border-left:4px solid var(--orange);font-size:0.92rem;margin-top:14px;">
+      📖 <strong>给读者的话</strong>:这是本网站<strong>最详细的一课</strong>,因为我们当时是慢慢走的。如果你是刚学编程的人,完全照着读完就能跟上。每一章末尾有思考题,可以自我检查。
+    </p>
+  </header>
+
+  <!-- Chapter 1 -->
+  <section class="chapter">
+    <span class="chapter-num">第 1 章</span>
+    <h2>Python 到底是个啥?</h2>
+
+    <h3>一句话</h3>
+    <p>Python 就是一个<strong>程序(一个 .exe 文件)</strong>——就像 QQ、微信也都是程序一样。</p>
+
+    <h3>这个程序干嘛用?</h3>
+    <p>它的工作是<strong>"翻译"</strong>:</p>
+    <pre><code>你写的代码  →  Python.exe(翻译官)  →  电脑能懂的指令  →  电脑执行</code></pre>
+    <ul>
+      <li><strong>你</strong>:只会写人能看懂的代码(比如 <code>print("你好")</code>)</li>
+      <li><strong>电脑(CPU)</strong>:只会读 010101 这种二进制</li>
+      <li><strong>Python.exe</strong>:站在中间,把你的代码翻译成电脑能懂的指令</li>
+    </ul>
+    <p>所以"学 Python"的意思是:<strong>学会用 Python 这个翻译官能听懂的语言来写指令。</strong></p>
+
+    <h3>它在你电脑哪里?</h3>
+    <p>Python 装好后通常在某个固定路径,比如 <code>G:\study\Python\python.exe</code>。它就是个文件——双击它会闪一下黑窗口然后消失,因为它需要你"跟它说话"才会工作。</p>
+
+    <div class="tip"><strong>💡 专业名词(混个脸熟)</strong>:Python 这种"边翻译边执行"的程序,叫<strong>解释器(Interpreter)</strong>。跟它对应的还有"编译器(Compiler)",那是另一种翻译方式(C 语言、Java 用)。</div>
+
+    <h3>需要精确化的一点</h3>
+    <p>Python 不能听你<strong>随意说话</strong>。它能听懂的是一种<strong>有特定语法规则的"半人话半符号"语言</strong>。打个比方:</p>
+    <table>
+      <tr><th>你以为可以写</th><th>实际上</th></tr>
+      <tr><td>"请帮我打印 hello"</td><td>❌ Python 看不懂</td></tr>
+      <tr><td>"Print hello world please"</td><td>❌ Python 看不懂</td></tr>
+      <tr><td><code>print("hello world")</code></td><td>✅ Python 懂!</td></tr>
+    </table>
+
+    <div class="thinking">
+      <strong>🤔 思考题</strong>:用你自己的话说,Python 是什么?
+      <details><summary>看参考答案</summary>
+      <div class="answer">Python 是一个翻译器,能把"用 Python 语言写的代码"翻译成电脑能执行的指令。</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Chapter 2 -->
+  <section class="chapter">
+    <span class="chapter-num">第 2 章</span>
+    <h2>用 Python 的两种方式</h2>
+
+    <h3>方式 1:当面聊天(REPL)</h3>
+    <p>你打开翻译官的门 → 进去坐下 → 说一句他翻译执行一句 → 你说"我走了" → 关门。</p>
+    <ul>
+      <li>⚡ <strong>即时反馈</strong>——说一句立刻看到结果</li>
+      <li>🚫 <strong>不留痕迹</strong>——关门走人后,刚才说的话全部忘掉</li>
+      <li>🎯 <strong>适合</strong>:临时算个数、试一行小代码</li>
+    </ul>
+    <p>专业名字叫 <strong>REPL</strong>:</p>
+    <ul>
+      <li><strong>R</strong>ead(读你说的话)</li>
+      <li><strong>E</strong>val(理解 + 执行)</li>
+      <li><strong>P</strong>rint(打印结果)</li>
+      <li><strong>L</strong>oop(循环,等下一句)</li>
+    </ul>
+
+    <h3>方式 2:写信给他(脚本)</h3>
+    <p>你<strong>先写一封信</strong>(一个文件)把所有指令写好 → 把信交给翻译官 → 他从头读到尾全部执行 → 给你结果。</p>
+    <ul>
+      <li>📁 <strong>永久保留</strong>——这"信"是真实文件,下次还能用</li>
+      <li>🔁 <strong>可重复执行</strong>——一封信可以读 100 遍</li>
+      <li>🧱 <strong>可复杂</strong>——可以写几百行</li>
+      <li>🎯 <strong>适合</strong>:真正的项目,所有正式程序都这样写</li>
+    </ul>
+    <p>"信"的文件名以 <code>.py</code> 结尾(比如 <code>hello.py</code>)。</p>
+
+    <h3>对比表</h3>
+    <table>
+      <tr><th></th><th>REPL</th><th>脚本</th></tr>
+      <tr><td>像什么</td><td>当面聊天</td><td>写信</td></tr>
+      <tr><td>怎么开始</td><td>打 <code>python</code> 进入</td><td>写好 <code>.py</code> 文件</td></tr>
+      <tr><td>怎么执行</td><td>一行一行说</td><td><code>python 文件名.py</code></td></tr>
+      <tr><td>关了还在吗</td><td>没了</td><td>文件还在</td></tr>
+      <tr><td>适合</td><td>试一下、玩一下</td><td>真正的程序</td></tr>
+    </table>
+
+    <div class="thinking">
+      <strong>🤔 思考题</strong>:① "赶紧算 1+1 等于几" 用哪种?② "做个每天问候我的程序" 用哪种?
+      <details><summary>看参考答案</summary>
+      <div class="answer">① REPL——一次性小问题,不需要保存。<br>② 脚本——要重复使用、永久保留,必须存进文件。</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Chapter 3 -->
+  <section class="chapter">
+    <span class="chapter-num">第 3 章</span>
+    <h2>第一种用法:REPL(当面聊)</h2>
+
+    <h3>怎么进?</h3>
+    <p>在 PowerShell 里输:</p>
+    <pre><code>python</code></pre>
+    <p>回车后看到:</p>
+    <pre><code>Python 3.14.0 (...)
+Type "help", "copyright", "credits" or "license" for more information.
+&gt;&gt;&gt;</code></pre>
+
+    <h3>关键:<code>&gt;&gt;&gt;</code> 是什么?</h3>
+    <p><strong>它是 Python 翻译官的提示符</strong>,意思是"请讲"。</p>
+
+    <table>
+      <tr><th>提示符</th><th>含义</th></tr>
+      <tr><td><code>PS C:\xxx&gt;</code></td><td>PowerShell 在等你输 PowerShell 命令(<code>dir</code>、<code>cd</code>)</td></tr>
+      <tr><td><code>&gt;&gt;&gt;</code></td><td>Python 翻译官在等你输 Python 代码</td></tr>
+    </table>
+
+    <p><strong>它们是两套语言!</strong>搞错语言会报错——比如在 <code>&gt;&gt;&gt;</code> 后面输 <code>dir</code> 会出错,因为 Python 不认 PowerShell 的命令。</p>
+
+    <h3>关于 PATH(为啥打 <code>python</code> 就行)</h3>
+    <p>你电脑里有一份"已知程序清单"叫 <strong>PATH</strong>。Python 安装时主动加进去了,所以打短名字就能找到。</p>
+
+    <p>类比手机通讯录:</p>
+    <table>
+      <tr><th>手机</th><th>电脑</th></tr>
+      <tr><td>通讯录</td><td>PATH 清单</td></tr>
+      <tr><td>人的昵称</td><td>程序的短名字(<code>python</code>)</td></tr>
+      <tr><td>完整号码</td><td>程序的完整路径(<code>G:\study\Python\python.exe</code>)</td></tr>
+    </table>
+
+    <p><strong>谁在 PATH 里?</strong></p>
+    <ul>
+      <li>✅ 系统自带:<code>notepad</code>、<code>calc</code></li>
+      <li>✅ 程序员工具(装时勾选了):<code>python</code>、<code>git</code>、<code>gh</code></li>
+      <li>❌ 普通图形软件:<code>wechat</code>、<code>qq</code>(打了也没用)</li>
+    </ul>
+
+    <div class="thinking">
+      <strong>🤔 思考题</strong>:在 PowerShell 输 <code>wechat</code> 回车,微信会启动吗?
+      <details><summary>看参考答案</summary>
+      <div class="answer">通常不会。微信不在 PATH 清单里(它是给普通用户用的图形软件,通常双击图标启动,没必要加进 PATH)。要在终端启动微信得给完整路径。</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Chapter 4 -->
+  <section class="chapter">
+    <span class="chapter-num">第 4 章</span>
+    <h2><code>print()</code> 函数详细拆解</h2>
+
+    <p>这一章把人生第一行 Python 代码每个符号都拆开:</p>
+    <pre><code>print("hello world")</code></pre>
+
+    <h3>4 块拆分</h3>
+    <table>
+      <tr><th>第几块</th><th>是什么</th><th>干啥</th></tr>
+      <tr><td>① <code>print</code></td><td>函数的名字</td><td>告诉 Python:"我要用 print 这个功能"</td></tr>
+      <tr><td>② <code>(</code></td><td>英文左括号</td><td>函数的"开口"——准备接收输入</td></tr>
+      <tr><td>③ <code>"hello world"</code></td><td>字符串</td><td>要打印的内容,两边必须加引号</td></tr>
+      <tr><td>④ <code>)</code></td><td>英文右括号</td><td>函数的"闭口"——告诉 Python 我说完了</td></tr>
+    </table>
+
+    <h3>① <code>print</code> 是个 "函数"</h3>
+    <p><strong>函数 = 一个被预先做好的小工具,你给它输入,它给你输出。</strong></p>
+    <ul>
+      <li><strong>微波炉</strong>就是个函数:你放食物进去,按启动,它输出加热后的食物。</li>
+      <li><strong><code>print</code> 函数</strong>:你给它一段文字,它输出"在屏幕上显示这段文字"。</li>
+    </ul>
+    <p>Python 内置了很多这种小工具。<code>print</code> 是其中最常用的一个。</p>
+
+    <h3>② 和 ④ 那对括号 <code>( )</code></h3>
+    <p>括号是函数的"嘴巴"。任何函数都长这样:</p>
+    <pre><code>函数名(...)</code></pre>
+    <p>括号里塞的东西叫<strong>参数(argument)</strong>——就是你"喂"给函数的输入。</p>
+
+    <div class="pitfall">
+      <strong>⚠️ 必须是英文括号 <code>(</code> <code>)</code>,不能是中文括号 <code>(</code> <code>)</code></strong>。看着像但 Python 不认,会报 SyntaxError。
+    </div>
+
+    <h3>③ 那对引号 <code>" "</code></h3>
+    <p>引号告诉 Python "里面这段是一坨文字"——这种被引号包起来的文字,Python 里叫<strong>字符串(string)</strong>。</p>
+
+    <p>对比:</p>
+    <pre><code>print("hello")    ← 我要打印 "hello" 这段文字 ✅
+print(hello)      ← 没引号 → Python 以为 hello 是变量名 → 报错 NameError ❌</code></pre>
+
+    <p><strong>规则</strong>:只要是给电脑看的文字,都要用引号包起来。</p>
+
+    <div class="pitfall">
+      <strong>⚠️ 必须是英文引号 <code>"</code></strong>,不能是中文引号 <code>"</code> <code>"</code>。
+    </div>
+
+    <h3>故意踩两种错的对照</h3>
+
+    <h4>错误 ① — NameError(名字错)</h4>
+    <pre><code>&gt;&gt;&gt; print(hello)
+Traceback (most recent call last):
+  File "...", line 1, in &lt;module&gt;
+    print(hello)
+NameError: name 'hello' is not defined</code></pre>
+    <p><strong>意思</strong>:Python 看到 <code>hello</code> 没引号,以为是变量名,但找不到这个变量。错叫 NameError = "名字错误"。</p>
+    <p><strong>修复</strong>:加引号 → <code>print("hello")</code></p>
+
+    <h4>错误 ② — SyntaxError(语法错)</h4>
+    <pre><code>&gt;&gt;&gt; print("hi")     ← 注意:这个是中文括号
+  File "...", line 1
+    print("hi")
+         ^
+SyntaxError: invalid syntax</code></pre>
+    <p><strong>意思</strong>:Python 看到中文全角括号,这不在它的语法书里。错叫 SyntaxError = "语法错误"。</p>
+    <p><strong>修复</strong>:把符号换成英文版。</p>
+
+    <h3>读报错的核心两招</h3>
+    <ol>
+      <li><strong>看最后一行</strong> → 告诉你是哪种错(NameError、SyntaxError...)</li>
+      <li><strong>看上面"出问题的那行代码"</strong> → 告诉你错在哪一行</li>
+    </ol>
+  </section>
+
+  <!-- Chapter 5 -->
+  <section class="chapter">
+    <span class="chapter-num">第 5 章</span>
+    <h2>怎么"关上"翻译官的门</h2>
+
+    <h3>退出 REPL</h3>
+    <pre><code>&gt;&gt;&gt; exit()</code></pre>
+
+    <h3>拆解 <code>exit()</code></h3>
+    <ul>
+      <li><code>exit</code> 是函数的名字——和 <code>print</code> 一样,都是函数</li>
+      <li><code>()</code> 是一对英文空括号</li>
+    </ul>
+
+    <h3>为啥括号里啥都没有?</h3>
+    <p>因为 <code>exit()</code> <strong>不需要参数</strong>。它的工作只有"退出",不需要你喂任何东西。</p>
+
+    <p>对比:</p>
+    <ul>
+      <li><code>print("hello")</code> = 微波炉,要放食物才能加热</li>
+      <li><code>exit()</code> = 一个红色按钮,按一下就关机,不需要塞东西</li>
+    </ul>
+
+    <p>但<strong>括号还是得有</strong>——括号是"调用函数"的标志:</p>
+    <pre><code>exit()      ← 调用 exit 函数 ✅
+exit        ← 只是提到这个名字,Python 不会"按" ❌</code></pre>
+
+    <h3>判断你回到 PowerShell</h3>
+    <p>提示符从 <code>&gt;&gt;&gt;</code> 变回 <code>PS C:\xxx&gt;</code> = 成功退出。</p>
+  </section>
+
+  <!-- Chapter 6 -->
+  <section class="chapter">
+    <span class="chapter-num">第 6 章</span>
+    <h2><code>.py</code> 文件到底是啥?</h2>
+
+    <p><code>.py</code> 文件就是<strong>一个普通的文本文件</strong>,只是<strong>约定</strong>:里面装的是 Python 代码。</p>
+
+    <h3>常见文件后缀</h3>
+    <table>
+      <tr><th>文件名</th><th>后缀</th><th>通常装啥</th></tr>
+      <tr><td>照片.jpg</td><td>.jpg</td><td>图片</td></tr>
+      <tr><td>论文.docx</td><td>.docx</td><td>Word 文档</td></tr>
+      <tr><td>电影.mp4</td><td>.mp4</td><td>视频</td></tr>
+      <tr><td>网页.html</td><td>.html</td><td>网页</td></tr>
+      <tr><td>脚本.py</td><td>.py</td><td>Python 代码</td></tr>
+      <tr><td>笔记.txt</td><td>.txt</td><td>纯文本</td></tr>
+    </table>
+
+    <h3>关键认知:后缀只是"约定"</h3>
+    <p>电脑不会因为你叫 <code>.py</code> 就自动当 Python 代码。<strong>它本质还是普通文本文件。</strong></p>
+
+    <p>类比:你给猫起名叫"狗",它本质还是猫,只是名字叫狗。一个文件叫 <code>hello.py</code>,本质还是文本文件,只是后缀叫 <code>.py</code>。</p>
+
+    <h3>那 <code>.py</code> 后缀有啥用?</h3>
+    <p>它是给<strong>人和工具</strong>看的"标签":</p>
+    <ul>
+      <li><strong>告诉你</strong>:"这文件里是 Python 代码"</li>
+      <li><strong>告诉编辑器</strong>:用 Python 高亮样式显示</li>
+      <li><strong>告诉自己以后</strong>:"我要拿这个给 Python 跑"</li>
+    </ul>
+
+    <div class="thinking">
+      <strong>🤔 思考题</strong>:把 <code>hello.py</code> 改名叫 <code>hello.banana</code>,内容还是 <code>print("hello")</code>。<code>python hello.banana</code> 能跑吗?
+      <details><summary>看参考答案</summary>
+      <div class="answer">能跑!Python 不挑后缀,只要文件内容是合法 Python 代码,什么后缀都行。但实际工作中所有人都遵守 <code>.py</code> 这个约定,你也得遵守,否则别人看到你的文件不知道是啥。</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Chapter 7 -->
+  <section class="chapter">
+    <span class="chapter-num">第 7 章</span>
+    <h2><code>python hello.py</code> 这一行干了啥?</h2>
+
+    <h3>2 块拆分</h3>
+    <table>
+      <tr><th>部分</th><th>是啥</th><th>作用</th></tr>
+      <tr><td><code>python</code></td><td>命令</td><td>启动 Python 翻译官</td></tr>
+      <tr><td><code>hello.py</code></td><td>文件名</td><td>告诉 Python:"请读这个文件"</td></tr>
+    </table>
+
+    <h3>关键区别:跟不跟文件名</h3>
+    <table>
+      <tr><th>你输</th><th>后面跟啥</th><th>Python 反应</th></tr>
+      <tr><td><code>python</code></td><td>啥也没跟</td><td>进入 REPL → 出现 <code>&gt;&gt;&gt;</code></td></tr>
+      <tr><td><code>python hello.py</code></td><td>跟一个文件</td><td>读信模式 → 读文件 → 执行 → 退出</td></tr>
+    </table>
+
+    <p>Python 看到后面有文件名,会理解为:"哦,你不是要聊天,是给我一封信让我读完执行。我读完就走人。"</p>
+
+    <p>所以 <code>python hello.py</code> 跑完会<strong>自动退回 PowerShell</strong>,不会停在 <code>&gt;&gt;&gt;</code>。</p>
+
+    <h3>Python 读到 hello.py 之后做了啥</h3>
+    <p>假设文件内容:</p>
+    <pre><code>print("hello world")</code></pre>
+    <p>Python 内心:</p>
+    <pre><code>【接收】Python 收到 hello.py
+【打开】我打开看看里面写啥
+【读第 1 行】print("hello world")
+   → 这是 print 函数 + 字符串 "hello world"
+   → 我的工作:在屏幕上打印 "hello world"
+   → 执行!屏幕显示 hello world ✅
+【读第 2 行】没了,文件结束
+【收工】我读完了,退出</code></pre>
+
+    <h3>多行脚本</h3>
+    <p><code>.py</code> 文件可以是很多行。比如:</p>
+    <pre><code>print("第一行")
+print("第二行")
+print("第三行")</code></pre>
+    <p>Python 会<strong>从上到下一行一行执行</strong>:</p>
+    <pre><code>第一行
+第二行
+第三行</code></pre>
+
+    <p>这就是脚本的威力——一次写好,每次跑都按顺序执行。</p>
+
+    <div class="thinking">
+      <strong>🤔 思考题</strong>:文件 hello.py 内容如下,跑 <code>python hello.py</code> 屏幕显示几行?哪几行?顺序?
+      <pre><code>print("早上好")
+print("中午好")
+print("晚上好")</code></pre>
+      <details><summary>看参考答案</summary>
+      <div class="answer">3 行,从上到下:早上好、中午好、晚上好。Python 严格按文件顺序执行。</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Chapter 8 -->
+  <section class="chapter">
+    <span class="chapter-num">第 8 章</span>
+    <h2>"安全地"创建 .py 文件</h2>
+
+    <h3>问题回顾</h3>
+    <p>用 <code>echo "..." &gt; hello.py</code> 写 Python 文件,跑会报错:</p>
+    <pre><code>SyntaxError: Non-UTF-8 code starting with '\xff'</code></pre>
+    <p><strong>原因</strong>:PowerShell 的 <code>&gt;</code> 默认用 UTF-16 编码写文件,Python 只读 UTF-8。两边对不上。</p>
+
+    <h3>解决方案 A:Set-Content(命令行)</h3>
+    <pre><code>Set-Content -Encoding utf8 -Path hello.py -Value 'print("hello")'</code></pre>
+    <p>拆解:</p>
+    <ul>
+      <li><code>Set-Content</code> = 命令名("设置-内容")</li>
+      <li><code>-Encoding utf8</code> = 用 UTF-8 编码</li>
+      <li><code>-Path hello.py</code> = 写到这个文件</li>
+      <li><code>-Value 'print("hello")'</code> = 要写的内容</li>
+    </ul>
+
+    <h3>解决方案 B:Notepad(推荐新手用)</h3>
+    <p>在 PowerShell 里:</p>
+    <pre><code>notepad hello.py</code></pre>
+    <ul>
+      <li>文件存在 → 打开它的内容</li>
+      <li>文件不存在 → 弹对话框问"要新建吗?" → 点是 → 弹空记事本</li>
+    </ul>
+    <p>然后<strong>直接打字写代码 → <code>Ctrl + S</code> 保存</strong>。记事本默认 UTF-8 编码,永远不会有编码问题。</p>
+
+    <h3>三种方式对比</h3>
+    <table>
+      <tr><th>方式</th><th>优点</th><th>缺点</th><th>适合</th></tr>
+      <tr><td><code>echo &gt; xxx.py</code></td><td>一行搞定</td><td>❌ 编码坑</td><td>不推荐</td></tr>
+      <tr><td><code>Set-Content -Encoding utf8</code></td><td>命令行,编码正确</td><td>命令长</td><td>偶尔写一行小代码</td></tr>
+      <tr><td><strong><code>notepad xxx.py</code></strong></td><td>✅ 可视化、所见即所得</td><td>多一步打开/保存</td><td><strong>新手首选</strong> ⭐</td></tr>
+    </table>
+
+    <h3>套路总结</h3>
+    <p><code>notepad hello.py</code> 和 <code>python hello.py</code> 是<strong>一个套路</strong>:</p>
+    <pre><code>程序名  +  参数(文件名)
+ ↓         ↓
+notepad   hello.py    ← 让记事本打开这个文件
+python    hello.py    ← 让 Python 跑这个文件</code></pre>
+    <p>大部分命令都是这个结构。</p>
+  </section>
+
+  <!-- Chapter 9 -->
+  <section class="chapter">
+    <span class="chapter-num">第 9 章</span>
+    <h2>实战:把 hello.py 跑起来</h2>
+
+    <h3>6 步流程</h3>
+
+    <h4>第 1 步:打开 PowerShell</h4>
+    <p><code>Win + R</code> → 输 <code>powershell</code> → 回车。</p>
+
+    <h4>第 2 步:进练习文件夹</h4>
+    <pre><code>cd G:\研究生学习\python-练习</code></pre>
+    <p>提示符变成 <code>PS G:\研究生学习\python-练习&gt;</code> 表示成功。</p>
+
+    <h4>第 3 步:用记事本打开 hello.py</h4>
+    <pre><code>notepad hello.py</code></pre>
+
+    <h4>第 4 步:在记事本里写代码</h4>
+    <p>直接<strong>手打</strong>(不要复制粘贴,建立肌肉记忆):</p>
+    <pre><code>print("hello world")
+print("我是 undertaker-fr")
+print("我会编程了")</code></pre>
+
+    <div class="pitfall">
+      <strong>⚠️ 写代码三大守则</strong><br>
+      ① 输入法切到<strong>英文</strong>(Shift 键切换)<br>
+      ② 括号、引号必须英文<br>
+      ③ 每行末尾按回车换行
+    </div>
+
+    <h4>第 5 步:保存</h4>
+    <p>按 <code>Ctrl + S</code>。标题栏从 <code>*hello.py</code> 变成 <code>hello.py</code> 表示已保存。</p>
+
+    <h4>第 6 步:回到 PowerShell 运行</h4>
+    <pre><code>python hello.py</code></pre>
+    <p>看到:</p>
+    <pre><code>hello world
+我是 undertaker-fr
+我会编程了</code></pre>
+
+    <h3>🎉 你做到了!</h3>
+    <p>3 行代码 → 3 行输出 → Python 按顺序执行 → 你成功写出并运行了第一个 Python 脚本。</p>
+  </section>
+
+  <!-- Pitfalls -->
+  <section class="chapter">
+    <h2>🪤 真实踩坑记录</h2>
+
+    <div class="pitfall">
+      <strong>坑 1:用 <code>echo &gt; xxx.py</code> 写 Python 文件 → <code>SyntaxError: Non-UTF-8 code starting with '\xff'</code></strong><br>
+      原因:PowerShell 的 <code>&gt;</code> 默认 UTF-16,Python 只读 UTF-8。<br>
+      解决:用 <code>Set-Content -Encoding utf8 ...</code>,或更简单——<code>notepad 文件名</code>。
+    </div>
+
+    <div class="pitfall">
+      <strong>坑 2:中文输入法状态下打括号引号 → SyntaxError</strong><br>
+      <code>print("hi")</code>(全角) ≠ <code>print("hi")</code>(英文)。眼睛容易看错。<br>
+      解决:写代码前按 Shift / Ctrl+Space 切到英文输入法。
+    </div>
+
+    <div class="pitfall">
+      <strong>坑 3:复制路径时多带了 <code>&gt;</code> 字符</strong><br>
+      <code>cd G:\xxx&gt;</code> 报错 "路径中具有非法字符"。<br>
+      原因:从 PowerShell 提示符 <code>PS G:\xxx&gt;</code> 复制时,把末尾的 <code>&gt;</code> 也复制进去了。<br>
+      解决:去掉末尾的 <code>&gt;</code> 重输。
+    </div>
+  </section>
+
+  <!-- Achievements -->
+  <section class="chapter">
+    <h2>🏆 解锁的能力</h2>
+    <ul class="achievements">
+      <li>🐍 写下并执行了人生第一行 Python 代码 <code>print("hello world")</code></li>
+      <li>📝 能用记事本创建并编辑 <code>.py</code> 文件,避开编码坑</li>
+      <li>🎬 能让 Python 按顺序执行多行代码(脚本模式)</li>
+      <li>🐛 能识别两种基础报错:NameError(名字错) 和 SyntaxError(语法错)</li>
+      <li>🚪 能自由进出 REPL:<code>python</code> 进 → <code>exit()</code> 出</li>
+      <li>🧠 理解 PATH 是什么、函数是什么、字符串是什么、参数是什么</li>
+      <li>👀 知道读报错的两个核心技巧:看最后一行 + 看出错的代码行</li>
+    </ul>
+  </section>
+
+  <nav class="page-nav">
+    <a href="index.html">← 返回首页</a>
+    <a href="deployment.html">⟵ 上一篇:特别任务</a>
+    <span class="nav-disabled">下一篇:Day 4 (待完成) →</span>
+  </nav>
+
+  <footer>
+    最近更新:2026-04-28 · 由 Claude Code 协作维护
+  </footer>
+
+</div>
+
+</body>
+</html>
