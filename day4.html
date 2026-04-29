@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 4 · 变量 + input + 字符串拼接 - 我的编程学习笔记</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="container">
+
+  <nav class="page-nav">
+    <a href="index.html">← 返回首页</a>
+    <a href="day3.html">⟵ 上一篇:Day 3</a>
+    <span class="nav-disabled">下一篇:Day 5 (待完成) →</span>
+  </nav>
+
+  <header class="day-header">
+    <h1>🌲 Day 4 · 变量 + input() + 字符串拼接<span class="tag tag-done">已完成</span></h1>
+    <div class="day-date">学习日期:2026-04-29</div>
+    <p class="goal-box">🎯 <strong>学习目标</strong>:让程序"记住数据"(变量)、"问问题"(input)、"拼字"(+),写出会和用户对话的小程序。</p>
+    <p style="background:#fef3c7;padding:12px 16px;border-radius:6px;border-left:4px solid var(--orange);font-size:0.92rem;margin-top:14px;">
+      📖 <strong>给读者的话</strong>:这一课你会学到 Python 三个最核心的工具——<strong>变量、输入、拼接</strong>。学完后你能写出第一个"有交互"的真程序。
+    </p>
+  </header>
+
+  <!-- Chapter 1 -->
+  <section class="chapter">
+    <span class="chapter-num">第 1 章</span>
+    <h2>变量是什么?</h2>
+
+    <h3>一句话</h3>
+    <p><strong>变量 = 一个贴了标签的盒子,里面装着数据,你以后用标签的名字就能拿到数据。</strong></p>
+
+    <h3>盒子比喻</h3>
+    <pre><code>┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│ 标签:name    │    │ 标签:age     │    │ 标签:city    │
+│             │    │             │    │             │
+│  "小明"      │    │   18        │    │  "上海"      │
+└─────────────┘    └─────────────┘    └─────────────┘</code></pre>
+    <ul>
+      <li><strong>盒子上的标签</strong>= 变量名(<code>name</code>、<code>age</code>、<code>city</code>)</li>
+      <li><strong>盒子里装的东西</strong>= 变量的值(<code>"小明"</code>、<code>18</code>、<code>"上海"</code>)</li>
+    </ul>
+
+    <h3>为啥需要变量?</h3>
+    <p>不用变量,改一个名字要改很多地方:</p>
+    <pre><code>print("欢迎,小明!")
+print("小明,你今年 18 岁。")
+print("小明住在上海。")</code></pre>
+    <p>想换"小明"为"张三",得改 3 次。100 行代码就要改 100 次。</p>
+    <p>用变量,只改第一行,后面自动跟着变:</p>
+    <pre><code>name = "小明"
+print("欢迎," + name + "!")
+print(name + ",你今年 18 岁。")
+print(name + "住在上海。")</code></pre>
+    <p><strong>"改一处,处处生效"</strong>——这就是变量的威力。</p>
+
+    <h3>变量的 3 个核心特点</h3>
+    <ol>
+      <li><strong>有名字也有值</strong>:名字是标签,值是盒子里的内容</li>
+      <li><strong>可以反复使用</strong>:就像贴了"袜子"标签的抽屉,每次找袜子都看那个标签</li>
+      <li><strong>值可以改</strong>:这就是叫"变量(variable)"的原因——它的值是<strong>可变的</strong></li>
+    </ol>
+
+    <h3>变量 vs 字符串(关键区分)</h3>
+    <pre><code>print("hello")    ← "hello" 是字符串(直接的文字)
+print(hello)      ← hello 没引号 → Python 当成变量名找</code></pre>
+    <ul>
+      <li><strong>有引号</strong>→ 字符串(就是字面这段文字)</li>
+      <li><strong>没引号</strong>→ 变量名(去找有这个名字的盒子)</li>
+    </ul>
+
+    <div class="thinking">
+      <strong>🤔 思考题</strong>:下面代码会输出什么?
+      <pre><code>price = 100
+print(price)
+print("price")</code></pre>
+      <details><summary>看参考答案</summary>
+      <div class="answer">两行:<br>第 1 行 <code>100</code>(变量,从盒子取值)<br>第 2 行 <code>price</code>(字符串,原样输出 5 个字母)</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Chapter 2 -->
+  <section class="chapter">
+    <span class="chapter-num">第 2 章</span>
+    <h2>怎么创建变量?<code>=</code> 的真正含义</h2>
+
+    <h3>基本语法</h3>
+    <pre><code>变量名 = 值</code></pre>
+    <p>读作:<strong>"把右边的值,放进左边的盒子"</strong>。</p>
+
+    <h3>⚠️ 重要警告:Python 的 = 不是数学的 =</h3>
+    <p>数学课上 <code>=</code> 表示"两边相等"。<strong>Python 的 <code>=</code> 是"赋值"——一个动作</strong>:</p>
+    <pre><code>name = "小明"
+       ↑      ↑
+   把右边的"小明"放进左边这个叫 name 的盒子</code></pre>
+
+    <table>
+      <tr><th></th><th>数学</th><th>Python</th></tr>
+      <tr><td><code>x = 5</code></td><td>"x 等于 5"(陈述)</td><td>"把 5 放进 x 盒子"(动作)</td></tr>
+      <tr><td><code>x = x + 1</code></td><td>❌ 不可能</td><td>✅ "取 x 当前值加 1,再放回 x"</td></tr>
+    </table>
+
+    <p><strong>专业名词</strong>:<code>=</code> 在 Python 里叫<strong>赋值运算符(assignment operator)</strong>。</p>
+
+    <h3>语法拆解</h3>
+    <table>
+      <tr><th>部分</th><th>是啥</th><th>注意</th></tr>
+      <tr><td><code>name</code></td><td>变量名(标签)</td><td>不要加引号</td></tr>
+      <tr><td><code>=</code></td><td>赋值符号</td><td>两边可加空格</td></tr>
+      <tr><td><code>"小明"</code></td><td>值</td><td>字符串要加英文引号;数字不用</td></tr>
+    </table>
+
+    <h3>示例</h3>
+    <pre><code>&gt;&gt;&gt; name = "小明"        ← 字符串放盒子
+&gt;&gt;&gt; age = 18              ← 数字放盒子(不带引号)
+&gt;&gt;&gt; name                  ← REPL 直接输变量名
+'小明'                        ← 看见值(带引号 = 字符串)
+&gt;&gt;&gt; age
+18                            ← 数字(不带引号)</code></pre>
+
+    <p><strong>注意</strong>:赋值这个动作没有屏幕输出——Python 默默把值放进盒子。</p>
+
+    <h3>覆盖变量</h3>
+    <pre><code>&gt;&gt;&gt; name = "小明"
+&gt;&gt;&gt; name = "张三"     ← 覆盖!原来的"小明"消失
+&gt;&gt;&gt; name
+'张三'</code></pre>
+
+    <div class="pitfall">
+      <strong>⚠️ 常见错</strong>:<code>name = flash</code>(右边没引号)→ NameError。<br>
+      因为 Python 把右边的 <code>flash</code> 当成变量名去找,但没有这个变量。<br>
+      <strong>修复</strong>:加引号 → <code>name = "flash"</code>
+    </div>
+  </section>
+
+  <!-- Chapter 3 -->
+  <section class="chapter">
+    <span class="chapter-num">第 3 章</span>
+    <h2>变量名的规则</h2>
+
+    <h3>硬规矩(违反 → SyntaxError)</h3>
+    <ul>
+      <li>只能用:英文字母 / 数字 / 下划线 <code>_</code></li>
+      <li>不能用:空格、连字符 <code>-</code>、标点</li>
+      <li>不能用数字开头(<code>1name</code> ❌,<code>name1</code> ✅)</li>
+      <li>区分大小写(<code>name</code>、<code>Name</code>、<code>NAME</code> 是 3 个不同变量)</li>
+      <li>不能和 Python 关键字撞名(<code>if</code>、<code>for</code>、<code>while</code> 等)</li>
+    </ul>
+
+    <h3>软建议(违反不报错但代码丑)</h3>
+    <ul>
+      <li>用<strong>小写英文</strong>:<code>name</code>、<code>user_age</code></li>
+      <li>名字要<strong>有意义</strong>:<code>user_name</code> > <code>x</code></li>
+      <li>多个单词用<strong>下划线连</strong>(snake_case 风格):<code>first_name</code> > <code>firstname</code></li>
+      <li>中文变量名虽然合法,但<strong>不推荐</strong>(打字慢、不国际化)</li>
+    </ul>
+
+    <h3>例子对比</h3>
+    <table>
+      <tr><th>名字</th><th>合法</th><th>推荐</th></tr>
+      <tr><td><code>age</code></td><td>✅</td><td>✅</td></tr>
+      <tr><td><code>user_email</code></td><td>✅</td><td>✅</td></tr>
+      <tr><td><code>UserEmail</code></td><td>✅</td><td>⚠️ 不是 Python 风格</td></tr>
+      <tr><td><code>2nd_age</code></td><td>❌ SyntaxError</td><td>—</td></tr>
+      <tr><td><code>my-cat</code></td><td>❌ <code>-</code> 当减号</td><td>—</td></tr>
+      <tr><td><code>if</code></td><td>❌ 关键字</td><td>—</td></tr>
+      <tr><td><code>电影名</code></td><td>✅ 合法</td><td>⚠️ 中文不推荐</td></tr>
+    </table>
+  </section>
+
+  <!-- Chapter 4 -->
+  <section class="chapter">
+    <span class="chapter-num">第 4 章</span>
+    <h2>打印变量:REPL vs 脚本的差异</h2>
+
+    <h3>REPL 里:输变量名就能看</h3>
+    <pre><code>&gt;&gt;&gt; name = "小明"
+&gt;&gt;&gt; name
+'小明'</code></pre>
+
+    <h3>脚本里:必须用 print()</h3>
+    <p><code>test.py</code> 内容:</p>
+    <pre><code>name = "小明"
+name             ← 看似一样,实际啥也不显示</code></pre>
+    <p>跑 <code>python test.py</code>:屏幕<strong>啥都没显示</strong>。</p>
+
+    <h3>为什么?</h3>
+    <p>REPL 是<strong>交互模式</strong>,Python 默认会回显你输的东西,方便即时看。</p>
+    <p>脚本是<strong>批处理模式</strong>,Python 默默执行每一行,<strong>不会主动显示任何东西</strong>——除非你明确说"打印这个"。</p>
+
+    <h3>脚本里的正确写法</h3>
+    <pre><code>name = "小明"
+print(name)         ← 必须用 print 才能看</code></pre>
+
+    <p><strong>注意 <code>print(name)</code> 里的 <code>name</code> 没引号</strong>——因为它是变量,要去盒子取值。</p>
+    <p>如果写 <code>print("name")</code>,会原样打印 4 个字母 <code>name</code>(字符串)。</p>
+  </section>
+
+  <!-- Chapter 5 -->
+  <section class="chapter">
+    <span class="chapter-num">第 5 章</span>
+    <h2><code>input()</code> 让程序问问题</h2>
+
+    <h3>核心:input() 一个函数干 3 件事</h3>
+    <pre><code>input("some")
+    ↓
+① 在屏幕上显示 "some"(像 print 一样)
+② 暂停程序,等用户敲键盘
+③ 用户回车后,把输入的内容"递回来"</code></pre>
+
+    <p><strong>这 3 件事按顺序自动完成,不需要你写 3 行代码</strong>。</p>
+
+    <h3>语法拆解</h3>
+    <pre><code>answer = input("你叫什么名字?")
+   ↑          ↑          ↑
+ 接住盒子   函数        提示语</code></pre>
+
+    <table>
+      <tr><th>部分</th><th>是啥</th><th>干啥</th></tr>
+      <tr><td><code>input(...)</code></td><td>函数</td><td>等用户输入,返回输入的内容</td></tr>
+      <tr><td><code>"你叫什么名字?"</code></td><td>字符串参数</td><td>屏幕上先显示,提示用户输什么</td></tr>
+      <tr><td><code>answer = ...</code></td><td>赋值</td><td>把用户输的存进 answer 变量</td></tr>
+    </table>
+
+    <h3>关于 print vs input 的"返回值"</h3>
+    <p>这是个新概念,叫<strong>函数的返回值</strong>。</p>
+    <p>类比<strong>自动售货机</strong>:</p>
+    <ul>
+      <li>输入:塞钱、按按钮</li>
+      <li><strong>返回</strong>:掉一瓶水出来</li>
+    </ul>
+    <pre><code>水 = 售货机(钱, 按钮)         ← 接住返回的水</code></pre>
+
+    <p>input 也一样:</p>
+    <ul>
+      <li>输入:括号里的提示语</li>
+      <li><strong>返回</strong>:用户键盘输入的字符串</li>
+    </ul>
+
+    <table>
+      <tr><th></th><th>print</th><th>input</th></tr>
+      <tr><td>主要工作</td><td>打印到屏幕</td><td>从用户那收数据</td></tr>
+      <tr><td>有返回值吗</td><td>❌ 没有有用的返回值</td><td>✅ 返回用户输入的字符串</td></tr>
+      <tr><td>能赋值吗</td><td><code>x = print("hi")</code> 没意义</td><td><code>x = input("hi")</code> ✅</td></tr>
+    </table>
+
+    <h3>关键认知</h3>
+    <p><code>input()</code> 这一行执行时,<strong>整个程序卡住等用户输入</strong>。这就是它能"问问题"的原因——程序真的会等。</p>
+  </section>
+
+  <!-- Chapter 6 -->
+  <section class="chapter">
+    <span class="chapter-num">第 6 章</span>
+    <h2>input 返回的<strong>永远是字符串</strong>(经典坑)</h2>
+
+    <h3>核心事实</h3>
+    <p><strong>不管用户输的是字母、汉字还是数字,<code>input()</code> 拿回来的都是字符串。</strong></p>
+    <p>哪怕你输 <code>5</code>,<code>input()</code> 给你的也是<strong>字符串 <code>"5"</code></strong>,不是数字 5。</p>
+
+    <h3>这有啥区别?</h3>
+    <pre><code>"5" + "3"   ← 字符串 + 字符串 = "53"(粘起来)
+ 5  +  3    ← 数字 + 数字 = 8(算数)</code></pre>
+
+    <h3>实际踩坑</h3>
+    <pre><code>&gt;&gt;&gt; a = input("第一个数:")     输 5
+&gt;&gt;&gt; b = input("第二个数:")     输 3
+&gt;&gt;&gt; a + b
+'53'                              ← 不是 8!</code></pre>
+
+    <p><strong>这是因为 a 和 b 都是字符串</strong>。验证:</p>
+    <pre><code>&gt;&gt;&gt; type(a)
+&lt;class 'str'&gt;</code></pre>
+
+    <h3>修复:用 <code>int()</code> 转换</h3>
+    <pre><code>&gt;&gt;&gt; a = int(input("第一个数:"))    输 5
+&gt;&gt;&gt; b = int(input("第二个数:"))    输 3
+&gt;&gt;&gt; a + b
+8</code></pre>
+
+    <p><strong>读法</strong>:</p>
+    <ol>
+      <li><code>input(...)</code> 拿回字符串 <code>"5"</code></li>
+      <li><code>int(...)</code> 把字符串 <code>"5"</code> 转换成数字 <code>5</code></li>
+      <li>把数字 <code>5</code> 放进 <code>a</code> 盒子</li>
+    </ol>
+
+    <p>这种"函数套函数"叫<strong>嵌套调用</strong>——内层先执行,把结果传给外层。</p>
+
+    <h3>新工具:<code>type()</code> 查变量类型</h3>
+    <pre><code>type("hello")     → &lt;class 'str'&gt;     字符串
+type(5)            → &lt;class 'int'&gt;     整数
+type(3.14)         → &lt;class 'float'&gt;   小数</code></pre>
+
+    <p>不知道一个变量是啥类型,用 <code>type()</code> 一查就明白。</p>
+
+    <h3>为啥 input 永远返回字符串?</h3>
+    <p>设计哲学:"我不知道用户想输啥,可能名字、可能数字、可能日期——保险起见全当文字处理,你需要再自己转。"</p>
+  </section>
+
+  <!-- Chapter 7 -->
+  <section class="chapter">
+    <span class="chapter-num">第 7 章</span>
+    <h2>字符串拼接:<code>+</code> 不是相加,是粘贴</h2>
+
+    <h3>同一个 +,不同行为</h3>
+    <pre><code>3 + 5            ← 数字 + 数字 = 8(数学加法)
+"3" + "5"        ← 字符串 + 字符串 = "35"(粘贴)
+"你好" + "世界"   ← "你好世界"</code></pre>
+
+    <p>Python 看左右两边类型,决定 <code>+</code> 怎么干。这种"粘贴"操作专业叫<strong>拼接(concatenation)</strong>。</p>
+
+    <h3>链式拼接</h3>
+    <pre><code>name = "小明"
+print("你好," + name + "!欢迎来到编程世界")
+→ 你好,小明!欢迎来到编程世界</code></pre>
+
+    <h3>经典坑:字符串 + 数字 → TypeError</h3>
+    <pre><code>age = 18
+print("我今年" + age + "岁")     ← ❌ TypeError</code></pre>
+    <p>Python 看到 <strong>字符串 + 数字</strong>,不知道你想拼接还是算数,直接报错。</p>
+
+    <h3>修复:用 <code>str()</code> 把数字转成字符串</h3>
+    <pre><code>age = 18
+print("我今年" + str(age) + "岁")    ← ✅ 我今年18岁</code></pre>
+
+    <h3>str() 和 int() 是反方向</h3>
+    <table>
+      <tr><th>函数</th><th>干啥</th></tr>
+      <tr><td><code>int("5")</code></td><td>字符串 → 数字</td></tr>
+      <tr><td><code>str(5)</code></td><td>数字 → 字符串</td></tr>
+      <tr><td><code>type(...)</code></td><td>查类型</td></tr>
+    </table>
+  </section>
+
+  <!-- Chapter 8 -->
+  <section class="chapter">
+    <span class="chapter-num">第 8 章</span>
+    <h2>实战:写一个互动问候程序</h2>
+
+    <h3>程序效果</h3>
+    <pre><code>你叫什么名字?小明                ← 你输入
+你好,小明!欢迎来到编程世界 🎉    ← 程序输出</code></pre>
+
+    <h3>6 步流程</h3>
+
+    <h4>第 1 步:回到 PowerShell</h4>
+    <p>如果在 REPL,先 <code>exit()</code>。</p>
+
+    <h4>第 2 步:进练习文件夹</h4>
+    <pre><code>cd G:\研究生学习\python-练习</code></pre>
+
+    <h4>第 3 步:用记事本新建文件</h4>
+    <pre><code>notepad greet.py</code></pre>
+    <p>弹出对话框点"是"新建。</p>
+
+    <h4>第 4 步:在记事本里手打代码</h4>
+    <pre><code>name = input("你叫什么名字?")
+print("你好," + name + "!欢迎来到编程世界 🎉")</code></pre>
+
+    <div class="pitfall">
+      <strong>⚠️ 三大守则</strong><br>
+      ① 输入法切英文(Shift)<br>
+      ② 括号、引号、感叹号必须英文<br>
+      ③ 每行末尾回车换行
+    </div>
+
+    <h4>第 5 步:保存</h4>
+    <p><code>Ctrl + S</code>。标题栏从 <code>*greet.py</code> 变成 <code>greet.py</code>。</p>
+
+    <h4>第 6 步:回 PowerShell 跑</h4>
+    <pre><code>python greet.py</code></pre>
+
+    <h3>逐行拆解</h3>
+    <p><strong>第 1 行 <code>name = input("你叫什么名字?")</code></strong>:</p>
+    <ol>
+      <li>input 把"你叫什么名字?"打印到屏幕</li>
+      <li>暂停程序等输入</li>
+      <li>用户输入"小明"回车</li>
+      <li>input 返回字符串 "小明"</li>
+      <li>赋值给 name 盒子</li>
+    </ol>
+
+    <p><strong>第 2 行 <code>print("你好," + name + "!欢迎来到编程世界 🎉")</code></strong>:</p>
+    <ol>
+      <li>拼接 "你好," + "小明" + "!欢迎来到编程世界 🎉"</li>
+      <li>结果:"你好,小明!欢迎来到编程世界 🎉"</li>
+      <li>print 打印</li>
+    </ol>
+
+    <h3>加分挑战</h3>
+    <pre><code>name = input("你叫什么名字?")
+hobby = input("你最喜欢做什么?")
+print("你好," + name + "!")
+print(name + "最喜欢的是" + hobby + ",听起来很棒")</code></pre>
+  </section>
+
+  <!-- Pitfalls -->
+  <section class="chapter">
+    <h2>🪤 真实踩坑记录</h2>
+
+    <div class="pitfall">
+      <strong>坑 1:NameError(右边没引号)</strong><br>
+      <code>name = flash</code> 报错——Python 把 flash 当变量名找不到。<br>
+      <strong>修复</strong>:加引号 → <code>name = "flash"</code>
+    </div>
+
+    <div class="pitfall">
+      <strong>坑 2:TypeError(字符串 + 数字)</strong><br>
+      <code>"我今年" + age</code>(age=18)报 TypeError。<br>
+      <strong>修复</strong>:<code>"我今年" + str(age)</code>
+    </div>
+
+    <div class="pitfall">
+      <strong>坑 3:SyntaxError unterminated string literal</strong><br>
+      字符串没"封口"——通常因为引号是中文全角 <code>"</code>。<br>
+      <strong>修复</strong>:输入法切英文,所有标点重新检查。
+    </div>
+
+    <div class="pitfall">
+      <strong>坑 4:SyntaxError invalid character '!' (U+FF01)</strong><br>
+      用了中文全角感叹号 <code>!</code>。Python 不认识。<br>
+      <strong>修复</strong>:换成英文 <code>!</code>。
+    </div>
+
+    <div class="pitfall">
+      <strong>坑 5:input 拿回的是字符串,不是数字</strong><br>
+      <code>"5" + "3" = "53"</code>,不是 8。<br>
+      <strong>修复</strong>:用 <code>int()</code> 包一层 → <code>int(input(...))</code>
+    </div>
+  </section>
+
+  <!-- Achievements -->
+  <section class="chapter">
+    <h2>🏆 解锁的能力</h2>
+    <ul class="achievements">
+      <li>📦 理解变量是"贴标签的盒子",能创建、读取、覆盖变量</li>
+      <li>🔄 能区分变量(无引号)和字符串(有引号)</li>
+      <li>📝 知道变量命名规则(snake_case、不能数字开头、不能和关键字撞)</li>
+      <li>📥 会用 <code>input()</code> 让程序接收用户输入</li>
+      <li>🔁 知道 input 返回的永远是字符串,需要 <code>int()</code> 转数字</li>
+      <li>🔧 会用 <code>str()</code>、<code>int()</code>、<code>type()</code> 三个类型工具</li>
+      <li>🧵 会用 <code>+</code> 拼接字符串,也知道字符串 + 数字会报 TypeError</li>
+      <li>🤝 写出第一个会和用户对话的真实程序</li>
+      <li>🐛 认识三种基础报错:NameError、SyntaxError、TypeError</li>
+    </ul>
+  </section>
+
+  <nav class="page-nav">
+    <a href="index.html">← 返回首页</a>
+    <a href="day3.html">⟵ 上一篇:Day 3</a>
+    <span class="nav-disabled">下一篇:Day 5 (待完成) →</span>
+  </nav>
+
+  <footer>
+    最近更新:2026-04-29 · 由 Claude Code 协作维护
+  </footer>
+
+</div>
+
+</body>
+</html>
